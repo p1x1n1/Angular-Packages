@@ -1,0 +1,40 @@
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    font-size: 14px;
+  }
+  
+  .package-list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    max-height: 500px;
+  }
+  
+  .package-card {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+  
+  .package-card:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .highlight {
+    color: red;
+  }
+  
+  .orange-highlight {
+    color: orange;
+  }
