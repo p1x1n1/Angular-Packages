@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 import { PackageService } from '../service/package.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Packages } from './packages.interface';
 
 @Component({
   selector: 'app-packages',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './packages.component.html',
   styleUrl: './packages.component.css'
 })
 export class PackagesComponent {
-  packages: any[] = [];
-  filteredPackages: any[] = [];
-  dependencies = new Map<string, string[]>();
+  packages: Packages[] = [];
+  filteredPackages: Packages[] = [];
+  dependencies = new Set<string>();
+  searchText: string = ''; 
 
   constructor(private packageService: PackageService) {}
 
@@ -33,11 +36,9 @@ export class PackagesComponent {
   }
 
   // Фильтрация 
-  filterPackages(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const searchText = input.value;
+  filterPackages(): void {
     this.filteredPackages = this.packages.filter(pkg =>
-      pkg.id.toLowerCase().includes(searchText.toLowerCase())
+      pkg.id.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
@@ -45,7 +46,8 @@ export class PackagesComponent {
   highlightDependencies(pkgId: string): void {
     this.packageService.getPackageDependencies(pkgId).subscribe((dependencies) => {
       // console.log(dependencies)
-      this.dependencies.set(pkgId, dependencies);
+      dependencies.forEach(dep => this.dependencies.add(dep)); // Добавляем зависимости в Set
+      // console.log(this.dependencies)
     });
   }
   
@@ -54,7 +56,7 @@ export class PackagesComponent {
   }
   
   isHighlighted(pkgId: string): boolean {
-    return Array.from(this.dependencies.values()).flat().includes(pkgId);
+    return this.dependencies.has(pkgId); 
   }
 
   //Форматирование для количества скачивания зависимостей
@@ -66,6 +68,11 @@ export class PackagesComponent {
     } else {
       return downloads.toString();
     }
+  }
+
+  //Оптимизация перерисовки компонентов с помощью trackById
+  trackById(index: number, pkg: Packages): string {
+    return pkg.id;
   }
   
 }

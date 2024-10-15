@@ -13,7 +13,7 @@
   .package-list {
     display: flex;
     flex-wrap: wrap;
-    overflow-y: scroll;
+    overflow-y: scroll; /*полоса прокрутки*/
     max-height: 500px;
   }
   
@@ -24,7 +24,7 @@
     padding: 10px;
     margin: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s; /*плавный перееход*/
   }
   
   .package-card:hover {

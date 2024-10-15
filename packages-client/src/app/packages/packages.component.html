@@ -1,11 +1,11 @@
 <h1>Packages</h1>
 <div class="search-container">
-  <input type="text" placeholder="Search..." (input)="filterPackages($event)">
+  <input type="text" placeholder="Search..." [(ngModel)]="searchText" (input)="filterPackages()">
   <button (click)="refreshPackages()">⟳</button>
 </div>
 
 <div class="package-list">
-  <div *ngFor="let pkg of filteredPackages" class="package-card" (mouseenter)="highlightDependencies(pkg.id)" (mouseleave)="clearHighlight()">
+    <div *ngFor="let pkg of filteredPackages; trackBy: trackById" class="package-card" (mouseenter)="highlightDependencies(pkg.id)" (mouseleave)="clearHighlight()">
     <h3>
         <span *ngIf="pkg.id.includes('/')">
             <ng-container>

@@ -5,8 +5,12 @@ import { environment } from '../environments/environment';
 
 
 @Injectable({
-  providedIn: 'root'
-})
+  providedIn: 'root'//defsult action
+})//function expression
+//chsngeDetection.onPush()
+//end to end
+//HTTP only
+
 export class PackageService {
   private apiUrl = environment.apiUrl;
 
